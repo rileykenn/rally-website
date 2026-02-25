@@ -1,26 +1,278 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-racing-black: #0d0d0d;
+  --color-racing-charcoal: #1a1a1a;
+  --color-racing-dark: #222222;
+  --color-racing-grey: #2a2a2a;
+  --color-racing-steel: #3a3a3a;
+  --color-rally-red: #E63946;
+  --color-rally-red-glow: #ff1a2e;
+  --color-rally-orange: #FF6B35;
+  --color-dirt-brown: #8B6914;
+  --color-dirt-tan: #C49A6C;
+  --color-dirt-light: #D4A574;
+  --color-mud: #5C4033;
+  --color-cream: #F5F0E8;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-heading: var(--font-bebas);
+  --font-sans: var(--font-inter);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-in-left {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    0% {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes float-particle {
+
+    0%,
+    100% {
+      transform: translateY(0) translateX(0) rotate(0deg);
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 0.8;
+    }
+
+    90% {
+      opacity: 0.3;
+    }
+
+    50% {
+      transform: translateY(-120px) translateX(30px) rotate(180deg);
+    }
+  }
+
+  @keyframes dust-drift {
+    0% {
+      transform: translateX(-100%) translateY(0);
+      opacity: 0;
+    }
+
+    20% {
+      opacity: 0.15;
+    }
+
+    80% {
+      opacity: 0.1;
+    }
+
+    100% {
+      transform: translateX(100vw) translateY(-20px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes checkered-scroll {
+    0% {
+      background-position: 0 0;
+    }
+
+    100% {
+      background-position: 60px 0;
+    }
+  }
+
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      box-shadow: 0 0 15px rgba(230, 57, 70, 0.3);
+    }
+
+    50% {
+      box-shadow: 0 0 30px rgba(230, 57, 70, 0.6), 0 0 60px rgba(230, 57, 70, 0.2);
+    }
+  }
+
+  @keyframes rev-up {
+    0% {
+      transform: scaleX(0);
+    }
+
+    100% {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes dirt-spray {
+    0% {
+      transform: scale(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(3) rotate(180deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes shake {
+
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-2px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(2px);
+    }
+  }
+
+  --animate-fade-in-up: fade-in-up 0.7s ease-out forwards;
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-slide-in-left: slide-in-left 0.7s ease-out forwards;
+  --animate-slide-in-right: slide-in-right 0.7s ease-out forwards;
+  --animate-checkered-scroll: checkered-scroll 1s linear infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-rev-up: rev-up 0.8s ease-out forwards;
+  --animate-shake: shake 0.3s ease-in-out;
+}
+
+/* Base — Tailwind's preflight handles box-sizing and resets.
+   DO NOT add * { margin: 0 } — it overrides mx-auto etc. */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
+  background-color: var(--color-racing-black);
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Checkered Pattern */
+.checkered-stripe {
+  background-image:
+    linear-gradient(45deg, #000 25%, transparent 25%),
+    linear-gradient(-45deg, #000 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #000 75%),
+    linear-gradient(-45deg, transparent 75%, #000 75%);
+  background-size: 30px 30px;
+  background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+  background-color: #fff;
+  animation: checkered-scroll 1s linear infinite;
+}
+
+/* Glassmorphism */
+.glass-dark {
+  background: rgba(13, 13, 13, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(230, 57, 70, 0.15);
+}
+
+/* Dirt Texture Overlay */
+.dirt-texture {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C49A6C' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Mud splatter spots */
+.mud-splatter {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%235C4033' fill-opacity='0.04'%3E%3Ccircle cx='20' cy='30' r='8'/%3E%3Ccircle cx='70' cy='15' r='5'/%3E%3Ccircle cx='50' cy='60' r='12'/%3E%3Ccircle cx='85' cy='75' r='6'/%3E%3Ccircle cx='15' cy='80' r='4'/%3E%3Ccircle cx='40' cy='90' r='7'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Red glow effect for cards */
+.card-glow:hover {
+  box-shadow: 0 0 25px rgba(230, 57, 70, 0.2), 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Racing stripe accent */
+.racing-stripe {
+  background: linear-gradient(90deg,
+      var(--color-rally-red) 0%,
+      var(--color-rally-red) 33%,
+      var(--color-rally-orange) 33%,
+      var(--color-rally-orange) 66%,
+      var(--color-rally-red) 66%,
+      var(--color-rally-red) 100%);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-racing-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-rally-red);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-rally-red-glow);
+}
+
+/* Lightbox overlay */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
