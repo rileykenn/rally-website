@@ -103,7 +103,7 @@ export default function Hero() {
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="/media/forest road litup.webp"
+                    src="/media/heroimage.jpg"
                     alt="Rally car lighting up a forest road at night"
                     fill
                     className="object-cover object-center scale-105"
